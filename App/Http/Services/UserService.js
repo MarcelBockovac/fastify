@@ -5,23 +5,13 @@ async function attemptLogin(username, password)
     const hashedPassword = await User.getHashedPassword(username, password);
     let stringPassword = hashedPassword[0];
     let match = Auth.getHashedPassword(password, stringPassword['password']) 
-
+    Auth.createSession(username);
     if(match){
         return "Successfully logged in."
     }
     else{
-        return "no u."
-    }
-
-    /*const userData = await User.getUser(username, password);
-    var response = userData[0]
-    if(Object.keys(response).length === 0){
         return "Invalid credentials."
     }
-    else{
-        Auth.createSession(username);
-        return "Successfully logged in"
-    }*/
 }
 
 async function attemptSave(username, password)
@@ -38,8 +28,18 @@ async function attemptSave(username, password)
     
 }
 
+async function checkSession(username){
+    if(Auth.fetchSession(username)){
+        return "Session is set."
+    }
+    else{
+        return "Session is not set."
+    }
+}
+
 
 module.exports = {
     attemptLogin,
-    attemptSave
+    attemptSave,
+    checkSession
 }

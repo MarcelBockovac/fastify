@@ -25,9 +25,13 @@ async function routes (fastify, options){
 
     fastify.get('/employees/:id', EmployeeController.getEmployee)
 
+    fastify.get('/session/:username', UserController.checkSession)
+
     fastify.post('/login', UserController.tryLogin)
 
-    fastify.post('/register', UserController.saveUser)
+    fastify.put('/register', UserController.saveUser)
+
+  
 }
 
 module.exports = routes;

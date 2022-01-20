@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 
+
 function hashPassword(password){
     const rounds = 15;
     const salt = bcrypt.genSaltSync(rounds);
@@ -13,7 +14,7 @@ function getHashedPassword(password, hashedPassword){
 
 
 function createSession(username){
-    sessionStorage.setItem('username', username)
+   sessionStorage = {"username": username}
 }
 
 function fetchSession(username){

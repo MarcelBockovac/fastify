@@ -16,8 +16,15 @@ async function saveUser(req, reply){
 
     return reply.status(200).send(response)
 }
+async function checkSession(username){
+    
+    var response = await UserService.checkSession(username)
+
+    return reply.status(200).send(response)
+}
 
 module.exports = {
     tryLogin,
-    saveUser
+    saveUser,
+    checkSession
 }
