@@ -1,0 +1,22 @@
+### GET ALL ITEMS
+GET http://localhost:3000/employees HTTP/1.1
+
+### Try login
+
+POST http://localhost:3000/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Marcel",
+    "password": "Marcel1233"
+}
+
+### Try save
+
+POST http://localhost:3000/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Marcel",
+    "password": "Marcel123"
+}

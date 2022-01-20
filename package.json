@@ -1,0 +1,23 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^14.2.0",
+    "fastify": "^3.27.0",
+    "fastify-mysql": "^2.1.0",
+    "fastify-swagger": "^4.13.1",
+    "nodemon": "^2.0.15",
+    "point-of-view": "^5.0.0",
+    "uuid": "^8.3.2"
+  }
+}
