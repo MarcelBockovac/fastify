@@ -1,5 +1,6 @@
 const mysqlPromise = require('../../Config/database')
 
+// Convert to class
 
 // Function for setting and getting tokens in/from database, sets token and on every auth try checks time of old token
 

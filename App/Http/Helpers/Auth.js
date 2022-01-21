@@ -40,6 +40,7 @@ async function middleware(id, type){
         else if(type == 'admin'){
             let is_admin = await User.checkIfIsAdmin(id)
             
+            // Try to fix this nested nested nested syntax -> Google why JS does this.
             if(is_admin[0][0]['is_admin'] != null){
                 return true;
             }

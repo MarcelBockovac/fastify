@@ -18,6 +18,7 @@ function getCurrentId(){
 async function attemptLogin(username, password)
 {
     const hashedPassword = await User.getHashedPassword(username, password);
+    // google why everything is nested inside a nested nest.
     let stringPassword = hashedPassword[0];
     let match = Auth.getHashedPassword(password, stringPassword['password']) 
     let token = await Token.checkToken(stringPassword['id'])

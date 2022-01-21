@@ -2,6 +2,8 @@ const mysqlPromise = require('../../Config/database')
 const Model = require('../Http/Helpers/Model')
 
 
+// Convert to class.
+
 
 const getUser = {
     getHashedPassword: async function(username,password) {
