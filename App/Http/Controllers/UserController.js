@@ -1,8 +1,5 @@
 let UserService = require('../Services/UserService')
 
-
-
-
 async function tryLogin(req,reply){
     let {username} = req.body
     let {password} = req.body
@@ -21,10 +18,15 @@ async function saveUser(req, reply){
    
     return reply.status(200).send(response)
 }
+async function showAllUsers(req,reply){
+    var response = await UserService.showAllUsers();
 
+    return reply.status(200).send(response)   
+    
+}
 
 module.exports = {
     tryLogin,
     saveUser,
-    
+    showAllUsers,    
 }

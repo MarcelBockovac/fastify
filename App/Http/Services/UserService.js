@@ -2,6 +2,14 @@ const User = require('../../Models/User')
 const Token = require('../../Models/Token')
 const Auth = require('../Helpers/Auth')
 
+let currentId = 0;
+function setCurrentId(id){
+    currentId = id;
+}
+
+function getCurrentId(){
+    return currentId;
+}
 
 
 async function attemptLogin(username, password)
@@ -9,10 +17,10 @@ async function attemptLogin(username, password)
     const hashedPassword = await User.getHashedPassword(username, password);
     let stringPassword = hashedPassword[0];
     let match = Auth.getHashedPassword(password, stringPassword['password']) 
-    let token = await Token.checkToken(stringPassword['id']);
+    let token = await Token.checkToken(stringPassword['id'])
     
-    console.log(token);
-    if(match){        
+    if(match){      
+        setCurrentId(stringPassword['id'])  
         if(token){
             Token.setToken(stringPassword['id']);
         }
@@ -45,9 +53,28 @@ async function checkSession(username){
     }
 }
 
+async function showAllUsers(){
+    // This is suposed to be middleware, this needs to get automated.
+    let notAuth = await Token.checkToken(getCurrentId())
+    
+    if(!notAuth){
+        let is_admin = await User.checkIfIsAdmin(getCurrentId())
+        
+        if(is_admin[0][0]['is_admin'] != null){
+            const userData = await User.showAllUsers()
+            var response = userData[0]
+            return response
+        }
+        else{
+            return 'You are not permited to see this page.'
+        }
+    }
+}
+
 
 module.exports = {
     attemptLogin,
     attemptSave,
-    checkSession
+    checkSession,
+    showAllUsers
 }

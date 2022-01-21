@@ -1,4 +1,6 @@
 const mysqlPromise = require('../../Config/database')
+const Model = require('../Http/Helpers/Model')
+
 
 const getUser = {
     getHashedPassword: async function(username,password) {
@@ -47,6 +49,36 @@ const getUser = {
             console.log(err)
             connection.release();
             return [...results, err];
+        }
+        return results;
+    },
+
+    showAllUsers: async function (){
+        const connection = await mysqlPromise.DATABASE.getConnection();
+        var results = [];
+        try {
+            results = await connection.execute(`SELECT * FROM Users`);
+            connection.release();
+        }
+        catch(err){
+            console.log(err);
+            connection.release();
+            return err;
+        }
+
+        return results;
+    },
+    checkIfIsAdmin: async function(id) {
+        const connection = await mysqlPromise.DATABASE.getConnection();
+        var results = [];
+        try {
+            results = await connection.execute('SELECT is_admin FROM Users WHERE id = ?', [id]);
+            connection.release();
+        }
+        catch(err){
+            console.log(err);
+            connection.release();
+            return err;
         }
         return results;
     }

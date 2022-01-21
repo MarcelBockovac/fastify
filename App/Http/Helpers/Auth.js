@@ -26,9 +26,17 @@ function fetchSession(username){
     }
 }
 
+function middleware(isAuth = 0, isAdmin = 0){
+    if(isAdmin) {
+        isAuth = 1;
+    }
+    
+}
+
 module.exports = {
     hashPassword, 
     getHashedPassword,
     createSession,
-    fetchSession
+    fetchSession,
+    middleware
 }
