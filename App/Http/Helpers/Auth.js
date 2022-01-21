@@ -13,8 +13,8 @@ function getHashedPassword(password, hashedPassword){
 }
 
 
-function createSession(username){
-   sessionStorage = {"username": username}
+async function createSession(id){
+   //token.setToken(id);
 }
 
 function fetchSession(username){

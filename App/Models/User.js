@@ -5,7 +5,7 @@ const getUser = {
         const connection = await mysqlPromise.DATABASE.getConnection();
         var results = [];
         try {
-            results = await connection.execute(`SELECT password FROM Users WHERE username = ?`,
+            results = await connection.execute(`SELECT id,password FROM Users WHERE username = ?`,
             [username]);
             connection.release();
         }

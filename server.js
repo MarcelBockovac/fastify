@@ -12,6 +12,7 @@ fastify.register(require('fastify-swagger'), {
 })
 fastify.register(require('./App/Routes/routes'))
 
+fastify.register(require('fastify-jwt'), {secret: 'SuperSecret'})
 
 const start = async () => {
     try {
