@@ -2,6 +2,9 @@ const User = require('../../Models/User')
 const Token = require('../../Models/Token')
 const Auth = require('../Helpers/Auth')
 
+//// TODO: Make currentUsersId private but accessible everywhere throug getters.
+
+
 let currentId = 0;
 function setCurrentId(id){
     currentId = id;
@@ -54,21 +57,33 @@ async function checkSession(username){
 }
 
 async function showAllUsers(){
-    // This is suposed to be middleware, this needs to get automated.
-    let notAuth = await Token.checkToken(getCurrentId())
-    
-    if(!notAuth){
-        let is_admin = await User.checkIfIsAdmin(getCurrentId())
-        
-        if(is_admin[0][0]['is_admin'] != null){
-            const userData = await User.showAllUsers()
-            var response = userData[0]
-            return response
-        }
-        else{
-            return 'You are not permited to see this page.'
-        }
+    // a not so good approach, still isnt what I want it to be.
+    let middleware = await Auth.middleware(getCurrentId(), 'admin');
+
+    if(middleware){
+        const userData = await User.showAllUsers()
+        var response = userData[0]
+        return response
     }
+    else{
+        return "You are not permited to see this page."
+    }
+
+
+    // let notAuth = await Token.checkToken(getCurrentId())
+    
+    // if(!notAuth){
+        // let is_admin = await User.checkIfIsAdmin(getCurrentId())
+        
+        // if(is_admin[0][0]['is_admin'] != null){
+            // const userData = await User.showAllUsers()
+            // var response = userData[0]
+            // return response
+        // }
+        // else{
+            // return 'You are not permited to see this page.'
+        // }
+    // }
 }
 
 

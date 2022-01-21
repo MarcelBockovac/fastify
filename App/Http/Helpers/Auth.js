@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt')
+const User = require('../../Models/User')
+const Token = require('../../Models/Token')
 
 
 function hashPassword(password){
@@ -26,11 +28,26 @@ function fetchSession(username){
     }
 }
 
-function middleware(isAuth = 0, isAdmin = 0){
-    if(isAdmin) {
-        isAuth = 1;
-    }
-    
+ // ID is curent users id, type is auth or admin, admin can see both auth and admin, auth can only see auth 
+async function middleware(id, type){
+    // TODO: Auth returs false when user is indeed authenticated, needs to be fixed 
+   let auth = await Token.checkToken(id)
+
+   if(!auth){
+        if(type == 'auth'){
+            return true;
+        }
+        else if(type == 'admin'){
+            let is_admin = await User.checkIfIsAdmin(id)
+            
+            if(is_admin[0][0]['is_admin'] != null){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+   }
 }
 
 module.exports = {
